@@ -1,2 +1,2 @@
 FROM mongo:7.0
-COPY *.js /docker-entrypoint-initdb.docker
+COPY master-data.js /docker-entrypoint-initdb.docker
