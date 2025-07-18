@@ -1,0 +1,45 @@
+networks:
+  default:
+    driver: bridge
+    name: roboshop
+    external: true # I created the netwrok already using docker netwrok create roboshop manually, hence external true, else if you want it to create then make it false
+
+services:
+  mongodb:
+    image: joindevops0425/mongodb
+    container_name: mongodb
+
+  catalogue:
+    image: joindevops0425/catalogue
+    container_name: catalogue
+    depends_on: 
+      - mongodb
+
+  redis: 
+    image: redis:7.0
+    container_name: redis
+  
+  user: 
+    image: joindevops0425/user
+    container_name: user
+    depends_on: 
+      - redis
+      - mongodb
+  
+  cart:
+    image: joindevops0425/cart
+    container_name: cart
+    depends_on: 
+      - catalogue
+      - redis
+
+  mysql:
+    image: joindevops0425/mysql
+    container_name: mysql
+
+  shipping: 
+    image: joindevops0425/shipping
+    container_name: shipping
+    depends_on: 
+      - mysql
+      - cart
