@@ -2,7 +2,7 @@ networks:
   default:
     driver: bridge
     name: roboshop
-    external: true # I created the netwrok already using docker netwrok create roboshop manually, hence external true, else if you want it to create then make it false
+    #external: true # I created the netwrok already using docker netwrok create roboshop manually, hence external true, else if you want it to create then make it false
 
 volumes: 
   mongodb:
