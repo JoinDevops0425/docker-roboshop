@@ -12,7 +12,9 @@ RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
 WORKDIR /opt/server
 USER roboshop
 COPY --from=builder /opt/server /opt/server
-CMD ["uwsgi", "--ini", "payment.ini"]
+CMD ["sleep", "1000"]
+
+#CMD ["uwsgi", "--ini", "payment.ini"]
 
 # FROM python:3.9
 # WORKDIR /opt/server
