@@ -1,8 +1,24 @@
-FROM python:3.9
+FROM python:3.9 AS builder
 WORKDIR /opt/server
-EXPOSE 8080
 COPY requirements.txt .
 COPY *.py .
 COPY payment.ini .
 RUN pip3 install -r requirements.txt
+
+
+FROM 3.9.23-alpine3.22
+EXPOSE 8080
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+WORKDIR /opt/server
+USER roboshop
+COPY --from=builder /opt/server /opt/server
 CMD ["uwsgi", "--ini", "payment.ini"]
+
+# FROM python:3.9
+# WORKDIR /opt/server
+# EXPOSE 8080
+# COPY requirements.txt .
+# COPY *.py .
+# COPY payment.ini .
+# RUN pip3 install -r requirements.txt
+# CMD ["uwsgi", "--ini", "payment.ini"]
